@@ -31,15 +31,14 @@
 // Додай закриття модального вікна після натискання клавіші Escape. Зроби так, щоб прослуховування клавіатури було тільки доти, доки відкрите модальне вікно. Бібліотека basicLightbox містить метод для програмного закриття модального вікна.
 
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
 
 const ulGallery = document.querySelector(".gallery");
 const cardsMarkup = createImegCardMarcup(galleryItems);
 ulGallery.insertAdjacentHTML("beforeend", cardsMarkup);
 ulGallery.addEventListener('click', onImgClick)
 
-function createImegCardMarcup(galleryItems) {
-  return galleryItems
+function createImegCardMarcup(items) {
+  return items
     .map(({ preview, original, description }) => {
       return `
 <li class="gallery__item">
@@ -67,16 +66,17 @@ const instance = basicLightbox.create(
     },
   }
 );
-function onImgClick(e) {
-  e.preventDefault();
-  const datasetSource = e.target.dataset.source;
+
+function onImgClick(event) {
+  event.preventDefault();
+  const datasetSource = event.target.dataset.source;
   if (!datasetSource) return;
   instance.element().querySelector("img").src = datasetSource;
   instance.show();
 }
 
-function onEscKeyPress(e) {
-  if (e.code !== "Escape") return;
+function onEscKeyPress(event) {
+  if (event.code !== "Escape") return;
   instance.close();
 }
 
