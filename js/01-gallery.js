@@ -35,37 +35,34 @@ import { galleryItems } from "./gallery-items.js";
 const ulGallery = document.querySelector(".gallery");
 const cardsMarkup = createImegCardMarcup(galleryItems);
 ulGallery.insertAdjacentHTML("beforeend", cardsMarkup);
-ulGallery.addEventListener('click', onImgClick)
+ulGallery.addEventListener("click", onImgClick);
 
 function createImegCardMarcup(items) {
   return items
     .map(({ preview, original, description }) => {
       return `
-<li class="gallery__item">
-  <a class="gallery__link" href="${original}">
-     <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-     />
-  </a>
-</li>`;
+      <li class="gallery__item">
+       <a class="gallery__link" href="${original}">
+        <img
+         class="gallery__image"
+         src="${preview}"
+         data-source="${original}"
+         alt="${description}"
+         />
+       </a>
+      </li>`;
     })
     .join("");
 }
 
-const instance = basicLightbox.create(
-  `<img width="1280" height="auto" src="">`,
-  {
-    onShow: (instance) => {
-      window.addEventListener("keydown", onEscKeyPress);
-    },
-    onClose: (instance) => {
-      window.removeEventListener("keydown", onEscKeyPress);
-    },
-  }
-);
+const instance = basicLightbox.create(`<img width="1280" height="auto" src="">`, {
+  onShow: (instance) => {
+    window.addEventListener("keydown", onEscKeyPress);
+  },
+  onClose: (instance) => {
+    window.removeEventListener("keydown", onEscKeyPress);
+  },
+});
 
 function onImgClick(event) {
   event.preventDefault();
